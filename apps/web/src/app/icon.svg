@@ -1,0 +1,6 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- White rounded box background -->
+  <rect width="32" height="32" rx="6" fill="white"/>
+  <!-- Bold N letter -->
+  <text x="16" y="23" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#000000" text-anchor="middle">N</text>
+</svg>

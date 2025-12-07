@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - NEURON{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+    <!-- Geometric Background -->
+    <div class="geometric-bg">
+        <div class="geo-circle geo-circle-1"></div>
+        <div class="geo-circle geo-circle-2"></div>
+        <div class="geo-line geo-line-1"></div>
+        <div class="geo-line geo-line-2"></div>
+        <div class="geo-dot geo-dot-1"></div>
+        <div class="geo-dot geo-dot-2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <div class="brand-logo">
+                    <span>N</span>
+                </div>
+                <span class="brand-text">NEURON</span>
+            </div>
+            
+            <div class="navbar-user">
+                {% if user.avatar_url %}
+                <img src="{{ user.avatar_url }}" alt="Avatar" class="user-avatar" referrerpolicy="no-referrer">
+                {% else %}
+                <div class="user-avatar user-avatar-placeholder">
+                    {{ user.name[0] | upper }}
+                </div>
+                {% endif %}
+                <span class="user-name">{{ user.name }}</span>
+                <a href="/logout" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="dashboard-content">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h1 class="welcome-title">Welcome, {{ user.name.split()[0] }}</h1>
+                <p class="welcome-subtitle">NEURON AI Platform</p>
+            </div>
+            
+            <div class="card-body">
+                <div class="user-info">
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">{{ user.email }}</span>
+                    </div>
+                </div>
+
+                <div class="projects-section">
+                    <h2 class="section-title">Your Projects</h2>
+                    
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="6" y="10" width="36" height="28" rx="2" stroke="#666" stroke-width="2" stroke-dasharray="4 2"/>
+                                <path d="M18 24H30" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M24 18V30" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <p class="empty-text">No projects yet</p>
+                        <p class="empty-subtext">Upload an image to convert it into production-ready code with NEURON AI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+.next/
+out/
+build/
+
+# Turbo
+.turbo/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+*.pem
+Thumbs.db
+
+# Google OAuth secrets - NEVER commit these
+client_secret*.json
+credentials.json
+token.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+app.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Uploads - keep folder structure but ignore uploaded files
+apps/api/uploads/*
+!apps/api/uploads/.gitkeep
+
+# Qodo
+.qodo/
+
+# Package lock files (optional - remove if you want to track them)
+# package-lock.json
+# yarn.lock

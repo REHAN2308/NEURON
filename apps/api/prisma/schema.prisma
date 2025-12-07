@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// User Model
+// ============================================
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  avatar    String?
+  
+  // Authentication
+  passwordHash String?
+  provider     String @default("EMAIL")
+  providerId   String?
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  projects  Project[]
+  
+  @@index([email])
+  @@map("users")
+}
+
+// ============================================
+// Project Model - Image to Code Generation
+// ============================================
+model Project {
+  id            String        @id @default(cuid())
+  
+  // Owner
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Project Details
+  name          String        @default("Untitled Project")
+  description   String?
+  
+  // Image Processing
+  originalImage String        // URL or path to the uploaded image
+  imageMetadata String?       // Width, height, format, size, etc. (JSON string)
+  
+  // Generated Output
+  generatedCode String? // The generated HTML/CSS/React code
+  codeType      String        @default("HTML")
+  framework     String        @default("VANILLA")
+  
+  // Layout Analysis (JSON from layout analyzer stage)
+  layoutJson    String?       // Layout analysis output (JSON string)
+  
+  // Extraction & Version History
+  extractionHistory String?   // Component extraction history (JSON string)
+  
+  // User instructions for initial generation
+  instructions  String?       // Natural language instructions from the user
+  
+  // Processing Status
+  status        String        @default("PENDING")
+  errorMessage  String?
+  
+  // Job Queue Reference
+  jobId         String?       @unique
+  
+  // Processing Metrics
+  processingStartedAt  DateTime?
+  processingCompletedAt DateTime?
+  
+  // Timestamps
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  // Relations
+  chatMessages  ChatMessage[]
+  
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("projects")
+}
+
+// ============================================
+// ChatMessage Model - Persisted Chat History
+// ============================================
+model ChatMessage {
+  id        String   @id @default(cuid())
+  
+  // Project relation
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  // Message content
+  role      String   // "user" | "assistant"
+  content   String
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  
+  @@index([projectId])
+  @@index([createdAt])
+  @@map("chat_messages")
+}
+
+// Enums replaced with strings for SQLite compatibility
+// ProjectStatus: PENDING | PROCESSING | COMPLETED | FAILED
+// CodeType: HTML | REACT | VUE | SVELTE
+// Framework: VANILLA | TAILWIND | BOOTSTRAP | MATERIAL_UI
+// AuthProvider: EMAIL | GOOGLE | GITHUB
+// ChatRole: user | assistant
