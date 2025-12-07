@@ -20,7 +20,11 @@ router.get('/', async (_req: Request, res: Response) => {
   let redisStatus = 'healthy';
   try {
     const redis = getRedisClient();
-    await redis.ping();
+    if (redis) {
+      await redis.ping();
+    } else {
+      redisStatus = 'unavailable';
+    }
   } catch {
     redisStatus = 'unhealthy';
   }

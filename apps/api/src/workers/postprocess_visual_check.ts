@@ -204,7 +204,9 @@ async function computeSSIM(
 
 /**
  * Extract color palette from an image
+ * @internal Reserved for future use
  */
+// @ts-ignore: Reserved for future use
 async function extractPalette(
   imagePath: string,
   k: number = 6

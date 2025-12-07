@@ -219,7 +219,7 @@ router.post('/:id/apply-change', async (req: Request, res: Response) => {
     }
 
     // Save the user message to chat history
-    const userChatMessage = await prisma.chatMessage.create({
+    await prisma.chatMessage.create({
       data: {
         projectId: id,
         role: 'user',
